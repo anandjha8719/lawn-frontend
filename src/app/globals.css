@@ -87,12 +87,12 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 a {
@@ -104,4 +104,32 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.content-container {
+  width: 85vw;
+  padding: 2rem 4rem 4em 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100vh;
+}
+
+.continue {
+  width: max-content;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.button-inactive {
+  color: #fff;
+}
+
+.button-active {
+  background-color: #fff;
+  color: rgb(46, 114, 70);
+  box-shadow: 25px 0 20px -20px rgba(0, 0, 0, 0.45);
 }
