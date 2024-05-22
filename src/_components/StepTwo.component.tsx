@@ -11,13 +11,17 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useState } from "react";
-const Tab2Content = () => {
-  const [age, setAge] = useState("");
+import dayjs, { Dayjs } from "dayjs";
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+const Tab2Content = ({ data, updateData }: { data: any; updateData: any }) => {
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    updateData({ [name]: value });
   };
-  const [value, setValue] = useState<Date | null>(null);
+
+  const handleDateChange = (date: Dayjs | null) => {
+    updateData({ requestedDate: date ? date.toISOString() : "" });
+  };
   return (
     <div className="section-content">
       <h1
@@ -30,17 +34,18 @@ const Tab2Content = () => {
         <p>How big is your lawn? Give us your best guess.*</p>
         <div className="" style={{ width: "400px" }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Lawn Size</InputLabel>
+            <InputLabel id="lawn-size-label">Lawn Size</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
+              labelId="lawn-size-label"
+              id="lawn-size-select"
+              name="lawnSize"
+              value={data.lawnSize}
               label="Lawn Size"
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value="small">Small</MenuItem>
+              <MenuItem value="medium">Medium</MenuItem>
+              <MenuItem value="large">Large</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -53,21 +58,21 @@ const Tab2Content = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <p>Select your grass length.*</p>
         <div className="" style={{ width: "400px" }}>
-          <Select
-            labelId="demo-simple-select-filled-label"
-            id="demo-simple-select-filled"
-            value={age}
-            onChange={handleChange}
-            label="grass Length"
-            fullWidth
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+          <FormControl fullWidth>
+            <InputLabel id="grass-length-label">Grass Length</InputLabel>
+            <Select
+              labelId="grass-length-label"
+              id="grass-length-select"
+              name="grassLength"
+              value={data.grassLength}
+              label="Grass Length"
+              onChange={handleChange}
+            >
+              <MenuItem value="short">Short</MenuItem>
+              <MenuItem value="medium">Medium</MenuItem>
+              <MenuItem value="long">Long</MenuItem>
+            </Select>
+          </FormControl>
         </div>
 
         <p>
@@ -82,7 +87,12 @@ const Tab2Content = () => {
         </p>
         <div className="" style={{ width: "400px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker />
+            <DatePicker
+              label="Requested Date"
+              value={data.requestedDate ? dayjs(data.requestedDate) : null}
+              onChange={handleDateChange}
+              renderInput={(params: any) => <TextField {...params} />}
+            />
           </LocalizationProvider>
         </div>
 

@@ -9,6 +9,12 @@
   width: 20vw;
   background-color: rgb(46, 114, 70);
   padding: 40px 0px 20px 40px;
+  background-image: repeating-radial-gradient(
+    circle at 0 0,
+    transparent 0,
+    rgb(46, 114, 70) 24px
+  ),
+  repeating-linear-gradient(#04993d55, #4dfab2);
 }
 .listContainer {
   height: 100%;
@@ -33,4 +39,3 @@
 
   z-index: 99;
 }
-
